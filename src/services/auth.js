@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api/user';
+// https://breakable-duck-kilt.cyclic.app
+const API_URL = 'https://breakable-duck-kilt.cyclic.app/api/user';
 
 const userRequest = axios.create({
   baseURL: API_URL,
