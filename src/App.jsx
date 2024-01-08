@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="mern-course-system-client">
         <Routes>
           <Route path="/" element={<Layout currentUser={currentUser} setCurrentUser={setCurrentUser} />}>
             <Route index element={<Home />} />
