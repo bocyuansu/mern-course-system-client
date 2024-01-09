@@ -4,25 +4,25 @@ import { newCourse } from '../services/course';
 
 const PostCourseComponent = (props) => {
   const { currentUser } = props;
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0);
+  const [course, setCourse] = useState({
+    title: '',
+    description: '',
+    price: 0,
+  });
+
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
   const handleTakeToLogin = () => {
     navigate('/login');
   };
-  const handleChangeTitle = (e) => {
-    setTitle(e.target.value);
+
+  const handleChange = (e) => {
+    setCourse({ ...course, [e.target.name]: e.target.value });
   };
-  const handleChangeDesciption = (e) => {
-    setDescription(e.target.value);
-  };
-  const handleChangePrice = (e) => {
-    setPrice(e.target.value);
-  };
+
   const postCourse = () => {
-    newCourse({ title, description, price })
+    newCourse(course)
       .then(() => {
         window.alert('新課程已創建成功');
         navigate('/course');
@@ -37,9 +37,9 @@ const PostCourseComponent = (props) => {
     <div style={{ padding: '3rem' }}>
       {!currentUser && (
         <div>
-          <p>在發布新課程之前，您必須先登錄。</p>
+          <p>在發布新課程之前，您必須先登入。</p>
           <button className="btn btn-primary btn-lg" onClick={handleTakeToLogin}>
-            帶我進入登錄頁面。
+            進入登入頁面。
           </button>
         </div>
       )}
@@ -50,14 +50,14 @@ const PostCourseComponent = (props) => {
       )}
       {currentUser && currentUser.user.role == 'instructor' && (
         <div className="form-group">
-          <label htmlFor="exampleforTitle">課程標題：</label>
-          <input name="title" type="text" className="form-control" id="exampleforTitle" onChange={handleChangeTitle} />
+          <label htmlFor="title">課程標題：</label>
+          <input name="title" type="text" className="form-control" id="title" onChange={handleChange} />
           <br />
-          <label htmlFor="exampleforContent">內容：</label>
-          <textarea className="form-control" id="exampleforContent" aria-describedby="emailHelp" name="content" onChange={handleChangeDesciption} />
+          <label htmlFor="description">內容：</label>
+          <textarea name="description" className="form-control" id="description" aria-describedby="emailHelp" onChange={handleChange} />
           <br />
-          <label htmlFor="exampleforPrice">價格：</label>
-          <input name="price" type="number" className="form-control" id="exampleforPrice" onChange={handleChangePrice} />
+          <label htmlFor="price">價格：</label>
+          <input name="price" type="number" className="form-control" id="price" onChange={handleChange} />
           <br />
           <button className="btn btn-primary" onClick={postCourse}>
             交出表單

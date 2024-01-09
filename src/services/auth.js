@@ -1,5 +1,5 @@
 import axios from 'axios';
-// https://breakable-duck-kilt.cyclic.app
+
 const API_URL = 'https://breakable-duck-kilt.cyclic.app/api/user';
 
 const userRequest = axios.create({

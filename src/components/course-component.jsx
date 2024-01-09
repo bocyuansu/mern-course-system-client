@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchCoursesById } from '../services/course';
+import { Link, useNavigate } from 'react-router-dom';
+import { fetchCoursesById, deleteCourse } from '../services/course';
 
 const CourseComponent = (props) => {
   const { currentUser } = props;
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState(null);
 
-  const handleTakeToLogin = () => {
-    navigate('/login');
-  };
-
-  useEffect(() => {
+  const fetchCourses = () => {
     let user_id;
     if (currentUser) {
       user_id = currentUser.user._id;
@@ -24,6 +20,26 @@ const CourseComponent = (props) => {
           console.log(e);
         });
     }
+  };
+
+  const handleTakeToLogin = () => {
+    navigate('/login');
+  };
+
+  const handleDeleteCourse = (id) => {
+    deleteCourse(id)
+      .then(() => {
+        window.alert('課程已經成功刪除!');
+        fetchCourses();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // 首次進入頁面
+  useEffect(() => {
+    fetchCourses();
   }, []);
 
   return (
@@ -58,6 +74,14 @@ const CourseComponent = (props) => {
                   </p>
                   <p style={{ margin: '0.5rem 0rem' }}>學生人數：{course.students.length}</p>
                   <p style={{ margin: '0.5rem 0rem' }}>課程價格：{course.price}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Link className="btn btn-primary" to={'../modifyCourse/' + course._id}>
+                      修改
+                    </Link>
+                    <a className="btn btn-danger" onClick={() => handleDeleteCourse(course._id)}>
+                      刪除
+                    </a>
+                  </div>
                 </div>
               </div>
             );
