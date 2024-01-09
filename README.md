@@ -22,4 +22,4 @@
 
 # Demo
 
-https://bocyuansu.github.io/mern-course-system-client/course
+https://bocyuansu.github.io/mern-course-system-client
