@@ -19,3 +19,7 @@
 (2) 後端使用 passport 實作 jwt 驗證使用者
 
 (3) 提交表單時，有驗證機制，必須符合格式才能提交，否則會報錯，並根據錯誤情況自訂錯誤訊息
+
+# Demo
+
+https://bocyuansu.github.io/mern-course-system-client/course

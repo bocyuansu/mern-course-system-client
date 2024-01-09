@@ -74,14 +74,16 @@ const CourseComponent = (props) => {
                   </p>
                   <p style={{ margin: '0.5rem 0rem' }}>學生人數：{course.students.length}</p>
                   <p style={{ margin: '0.5rem 0rem' }}>課程價格：{course.price}</p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Link className="btn btn-primary" to={'../modifyCourse/' + course._id}>
-                      修改
-                    </Link>
-                    <a className="btn btn-danger" onClick={() => handleDeleteCourse(course._id)}>
-                      刪除
-                    </a>
-                  </div>
+                  {currentUser.user.role === 'instructor' && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Link className="btn btn-primary" to={'../modifyCourse/' + course._id}>
+                        修改
+                      </Link>
+                      <a className="btn btn-danger" onClick={() => handleDeleteCourse(course._id)}>
+                        刪除
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
             );
